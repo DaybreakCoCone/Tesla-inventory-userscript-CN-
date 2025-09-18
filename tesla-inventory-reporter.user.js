@@ -23,6 +23,7 @@
   'use strict';
 
   const INVITE_URL = 'https://ts.la/xuan634381';
+  const INVENTORY_URL = 'https://www.tesla.com/inventory/new/my?referral=xuan634381&redirect=no&range=200&PaymentType=lease'; // NEW
 
   const KS = {
     report : 'tir49_report',
@@ -357,7 +358,7 @@
       <div class="tir-row" style="align-items:flex-start;">
         <span>支持作者</span>
         <div style="display:flex;flex-direction:column;gap:6px;max-width:240px;">
-          <div class="tir-muted">如果插件对你有帮助，希望能使用我的邀请码，下单可以领取额外三个月FSD（价值297美元）。</div>
+          <div class="tir-muted">如果插件对你有帮助，希望能使用我的邀请码下单，可以领取额外三个月FSD（价值297美元）。</div>
           <div class="tir-ref-box">
             <span class="tir-ref-url">${INVITE_URL}</span>
             <button id="tir-copy" class="tir-btn">复制邀请码</button>
@@ -369,7 +370,11 @@
       <div class="tir-row"><span>Pushover Token</span><span class="tir-col"><input id="tir-token" class="tir-input-wide" type="text" placeholder="必填：你的 API Token/Key"></span></div>
       <div class="tir-row"><span></span><span class="tir-col"><button id="tir-save-push" class="tir-btn">保存推送配置</button></span></div>
 
-      <div class="tir-row" style="gap:8px;"><button id="tir-toggle" class="tir-btn" style="flex:1;">暂停</button><button id="tir-now" class="tir-btn" style="flex:1;">立即播报</button></div>
+      <div class="tir-row" style="gap:8px;">
+        <button id="tir-toggle" class="tir-btn" style="flex:1;">暂停</button>
+        <button id="tir-now" class="tir-btn" style="flex:1;">立即播报</button>
+        <button id="tir-openinv" class="tir-btn" style="flex:1;">打开库存页</button> <!-- NEW -->
+      </div>
     `;
     document.body.appendChild(box);
 
@@ -400,6 +405,10 @@
       else { clearInterval(reportTimer); clearTimeout(refreshTimer); clearInterval(etaTimer); }
     });
     document.getElementById('tir-now').addEventListener('click', ()=>reportOnce());
+
+    document.getElementById('tir-openinv').addEventListener('click', ()=>{ // NEW
+      window.open(INVENTORY_URL, '_blank');
+    });
 
     document.getElementById('tir-copy').addEventListener('click', async ()=>{
       try{
